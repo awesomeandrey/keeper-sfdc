@@ -1,0 +1,14 @@
+sudo: true
+cache: false
+
+jobs:
+  include:
+    - stage: validate
+      script:
+        - bash scripts/prepare-env.sh -u HubOrg
+        - bash scripts/validate.sh -u HubOrg
+    - stage: deploy
+      if: branch=master
+      script:
+        - bash scripts/prepare-env.sh -u HubOrg
+        - bash scripts/deploy.sh -u HubOrg

@@ -26,6 +26,9 @@ echo Target org username is: $targetOrgUsername
 export tmp_dir=mdapioutput
 sfdx force:org:display -u $targetOrgUsername
 sfdx force:source:convert -d $tmp_dir
-sfdx force:mdapi:deploy -d $tmp_dir -u $targetOrgUsername -w 100
+sfdx force:mdapi:deploy -d $tmp_dir -u $targetOrgUsername -w 100 -c
 rm -rf ${tmp_dir}
-echo "Sources are deployed!"
+
+# Run all tests
+sfdx force:apex:test:run -u "$targetOrgUsername" --wait 10
+echo "Validated!"
