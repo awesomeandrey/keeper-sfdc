@@ -15,31 +15,25 @@ done
 
 # Print helpFunction in case parameters are empty;
 if [ -z $targetOrgUsername ]; then
-  echo "Target org username is required"
+  echo "Target org username is required!"
   helpFunction
 fi
 
 # Begin script in case all parameters are correct;
 echo Target org username is: $targetOrgUsername
 
-#Deploy via Metadata API;
+#Deploy & Validate & Tests Run via Metadata API;
 tmp_dir=mdapioutput
-rm -rf $tmp_dir
-sfdx force:org:display -u $targetOrgUsername
-sfdx force:source:convert -d $tmp_dir
-validationCommandResult=$(sfdx force:mdapi:deploy -d $tmp_dir -u $targetOrgUsername -w 100 -c)
-echo ${validationCommandResult}
-if echo ${validationCommandResult} | grep -iqF failure; then
-  echo "Validation failure!"
-  exit 1
-fi
-# Run all tests
-runTestsCommandResult=$(sfdx force:apex:test:run -u $targetOrgUsername --wait 10)
-echo ${runTestsCommandResult}
-if echo ${runTestsCommandResult} | grep -iqF failure; then
-  echo "Tests failure!"
-  exit 1
-fi
+rm -rf $tmp_dir &&
+  sfdx force:org:display -u $targetOrgUsername &&
+  sfdx force:source:convert -d $tmp_dir &&
+  cp -v destructiveChanges.xml $tmp_dir &&
+  sfdx force:mdapi:deploy -d $tmp_dir -u $targetOrgUsername -w 10 -c --ignorewarnings --testlevel RunAllTestsInOrg
 
+# Get exit code of previous command;
+status=$?
+[ $status -eq 0 ] && echo "Validated!" || exit 1
+
+# Cleanup directory;
 rm -rf $tmp_dir
-echo "Validated!"
+exit 0

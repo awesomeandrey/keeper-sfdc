@@ -1,0 +1,81 @@
+<template>
+    <div class="slds-is-relative">
+      <lightning-spinner if:true={loading} variant="brand"></lightning-spinner>
+      <div class="slds-summary-detail slds-is-open slds-theme_default">
+        <div style="width: 100%">
+          <div class="slds-summary-detail__title">
+            <div class="slds-grid">
+              <h3
+                class="slds-text-heading_small slds-truncate slds-p-right_small"
+              >
+                Create secret key
+              </h3>
+              <lightning-badge label="Step #1"></lightning-badge>
+            </div>
+            <p>
+              Secret key should be 19 bit size. You can also generate one by
+              clicking button below.
+            </p>
+          </div>
+          <lightning-layout
+            class="slds-summary-detail__content"
+            vertical-align="end"
+            multiple-rows
+          >
+            <lightning-layout-item flexibility="grow">
+              <lightning-input
+                label="Secret Key"
+                placeholder="Type here..."
+                type={inputType}
+              ></lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item
+              flexibility="no-grow"
+              class="slds-p-left_small"
+            >
+              <lightning-button-group>
+                <lightning-button
+                  label="Generate"
+                  onclick={handleGenerateBtnClick}
+                ></lightning-button>
+                <lightning-button-icon-stateful
+                  icon-name={controlIconName}
+                  selected={visible}
+                  onclick={handleToggleViewBtnClick}
+                ></lightning-button-icon-stateful>
+              </lightning-button-group>
+            </lightning-layout-item>
+            <lightning-layout-item if:false={loading} size="12">
+              <div class="slds-text-color_success">
+                <span>Good</span>&nbsp;
+                <lightning-icon
+                  icon-name="utility:like"
+                  variant="success"
+                  size="xx-small"
+                ></lightning-icon>
+              </div>
+              <div class="slds-text-color_error">
+                <span>The input is not valid</span>&nbsp;
+                <lightning-icon
+                  icon-name="utility:error"
+                  variant="error"
+                  size="xx-small"
+                ></lightning-icon>
+              </div>
+            </lightning-layout-item>
+          </lightning-layout>
+        </div>
+      </div>
+      <lightning-layout class="slds-m-top_large" horizontal-align="end">
+        <lightning-layout-item>
+          <lightning-button
+            label="Next"
+            variant="brand"
+            disabled={isSecretKeyValid}
+            onclick={handleNextBtnClick}
+          ></lightning-button>
+        </lightning-layout-item>
+      </lightning-layout>
+    </div>
+  </template>
+  

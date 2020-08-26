@@ -29,6 +29,11 @@
         <field>Credential__c.UsernameOrLogin__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User.HasSecretKeyConfigured__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Keeper User</label>
     <objectPermissions>

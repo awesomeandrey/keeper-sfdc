@@ -1,5 +1,10 @@
 {
   "orgName": "Keeper",
   "edition": "Developer",
-  "features": []
+  "features": [],
+  "settings": {
+    "mobileSettings": {
+      "enableS1EncryptedStoragePref2": false
+    }
+  }
 }

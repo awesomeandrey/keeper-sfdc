@@ -15,7 +15,7 @@ done
 
 # Print helpFunction in case parameters are empty;
 if [ -z $targetOrgUsername ]; then
-  echo "Target org username is required"
+  echo "Target org username is required!"
   helpFunction
 fi
 
@@ -24,14 +24,16 @@ echo Target org username is: $targetOrgUsername
 
 #Deploy via Metadata API;
 tmp_dir=mdapioutput
+rm -rf $tmp_dir &&
+  sfdx force:org:display -u $targetOrgUsername &&
+  sfdx force:source:convert -d $tmp_dir &&
+  cp -v destructiveChanges.xml $tmp_dir &&
+  sfdx force:mdapi:deploy -d $tmp_dir -u $targetOrgUsername -w 10 --ignorewarnings
+
+# Get exit code of previous command;
+status=$?
+[ $status -eq 0 ] && echo "Sources are deployed!" || exit 1
+
+# Cleanup directory;
 rm -rf $tmp_dir
-sfdx force:org:display -u $targetOrgUsername
-sfdx force:source:convert -d $tmp_dir
-commandResult=$(sfdx force:mdapi:deploy -d $tmp_dir -u $targetOrgUsername -w 100)
-echo ${commandResult}
-if echo ${commandResult} | grep -iqF failures; then
-  echo "Deployment failure!"
-  exit 1
-fi
-rm -rf $tmp_dir
-echo "Sources are deployed!"
+exit 0

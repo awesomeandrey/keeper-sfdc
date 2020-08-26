@@ -1,0 +1,14 @@
+<aura:component description="Runs Flow by its API name">
+    <aura:attribute
+            name="overlayPanel"
+            type="Object"
+            description="Dynamically generated modal window"
+    />
+    <!--Aura method which allows to run Flow imperatively-->
+    <aura:method name="run" action="{!c.run}">
+        <aura:attribute name="name" type="String" required="true"/>
+        <aura:attribute name="params" type="Object[]" required="false"/>
+    </aura:method>
+    <!--Service component to open modal windows-->
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+</aura:component>

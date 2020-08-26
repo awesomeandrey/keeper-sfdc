@@ -3,7 +3,7 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentName>home:recentRecordContainer</componentName>
+                <componentName>ActionsPanelContainer</componentName>
             </componentInstance>
         </itemInstances>
         <name>top</name>
@@ -20,7 +20,7 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentName>home:heroChart</componentName>
+                <componentName>home:recentRecordContainer</componentName>
             </componentInstance>
         </itemInstances>
         <name>sidebar</name>

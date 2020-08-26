@@ -1,0 +1,8 @@
+<aura:component implements="flexipage:availableForAllPageTypes">
+    <c:FlowRunner aura:id="flowRunner"/>
+    <lightning:layout class="slds-box slds-box--xx-small slds-theme_default" multipleRows="true">
+        <lightning:layoutItem size="12">
+            <c:actionsPanel onrunflow="{!c.handleRunFlow}"/>
+        </lightning:layoutItem>
+    </lightning:layout>
+</aura:component>

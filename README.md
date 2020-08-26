@@ -15,6 +15,7 @@ Salesforce application supporting encryption for user-defined credentials :close
 - [SFDX CLI](https://developer.salesforce.com/tools/sfdxcli)
 - [Travis CI](https://travis-ci.org)
 - [Continuous Integration Using Salesforce DX & Travis CI](https://trailhead.salesforce.com/content/learn/modules/sfdx_travis_ci)
+- [Apex Cipher](https://medium.com/@krissparks/apex-aes256-bit-encryption-f3434080eea7)
 
 #### Common commands
 
