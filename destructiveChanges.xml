@@ -3,6 +3,7 @@
     <version>49.0</version>
     <types>
         <members>FlowLauncher</members>
+        <members>ActionsPanelContainer</members>
         <name>AuraDefinitionBundle</name>
     </types>
     <types>

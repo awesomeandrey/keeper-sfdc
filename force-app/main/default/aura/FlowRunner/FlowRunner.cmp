@@ -1,8 +1,22 @@
-<aura:component description="Runs Flow by its API name">
+<aura:component description="Launches Flow in modal window"
+                extends="c:BaseComponent"
+                implements="flexipage:availableForAllPageTypes,lightning:backgroundUtilityItem">
+    <aura:attribute
+            name="isDesignMode"
+            type="Boolean"
+            description="INHERITED"
+            default="true"
+    />
+    <!--Attributes-->
     <aura:attribute
             name="overlayPanel"
             type="Object"
             description="Dynamically generated modal window"
+    />
+    <aura:attribute
+            name="handlerFunction"
+            type="Object"
+            description="Application event handler function"
     />
     <!--Aura method which allows to run Flow imperatively-->
     <aura:method name="run" action="{!c.run}">
@@ -11,4 +25,22 @@
     </aura:method>
     <!--Service component to open modal windows-->
     <lightning:overlayLibrary aura:id="overlayLib"/>
+    <!--Listen to specific event to -->
+    <c:auraPubSub aura:id="pubSub"/>
+    <!--Component lifecycle handlers-->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <!--Guidance scoped notification-->
+    <aura:if isTrue="{!v.isDesignMode}">
+        <div class="slds-scoped-notification slds-media slds-media_center slds-scoped-notification_dark" role="status">
+            <div class="slds-media__figure">
+                <lightning:icon iconName="utility:info" variant="inverse" alternativeText="Info"/>
+            </div>
+            <div class="slds-media__body">
+                <p>
+                    <code>Aura</code> component which launches Flow imperatively.<br/>
+                    This component is visible in <i>Lightning App Builder</i> environment only.
+                </p>
+            </div>
+        </div>
+    </aura:if>
 </aura:component>

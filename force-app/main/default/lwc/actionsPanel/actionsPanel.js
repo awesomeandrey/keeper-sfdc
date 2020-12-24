@@ -1,5 +1,7 @@
-import {LightningElement, api, track, wire} from "lwc";
-import {getRecord, getFieldValue} from "lightning/uiRecordApi";
+import {LightningElement, track, wire} from "lwc";
+import {getFieldValue, getRecord, getRecordNotifyChange} from "lightning/uiRecordApi";
+import {CurrentPageReference} from "lightning/navigation";
+import {APPLICATION_EVENTS, fireEvent} from "c/pubSub";
 import toastify from "c/toastify";
 
 import CurrentUserId from "@salesforce/user/Id";
@@ -10,6 +12,8 @@ import HAS_SECRET_KEY_CONFIGURED from "@salesforce/schema/User.HasSecretKeyConfi
 export default class ActionsPanel extends LightningElement {
     @track userId = CurrentUserId;
     @track hasSecretKeyConfigured = false;
+
+    @wire(CurrentPageReference) pageRef;
 
     get secretKeyStatusVariant() {
         return this.hasSecretKeyConfigured ? "success" : "warning";
@@ -29,7 +33,11 @@ export default class ActionsPanel extends LightningElement {
             toastify.info({message: "Secret key has already been created."});
         } else {
             const flowApiName = "SecretKeySetup"; // Hardcoded Flow API name;
-            this.dispatchEvent(new CustomEvent("runflow", {detail: {name: flowApiName}}));
+            fireEvent(this.pageRef, APPLICATION_EVENTS.RunFlow, {
+                name: flowApiName, onfinish: outputVariables => {
+                    getRecordNotifyChange([{recordId: this.userId}]);
+                }
+            });
         }
     }
 
