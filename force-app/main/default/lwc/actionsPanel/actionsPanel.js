@@ -6,7 +6,7 @@ import toastify from "c/toastify";
 
 import CurrentUserId from "@salesforce/user/Id";
 
-import KEEPER_SECRET_KEY from "@salesforce/schema/User.KeeperSecretKey__c";
+import SECRET_KEY from "@salesforce/schema/User.SecretKey__c";
 import HAS_SECRET_KEY_CONFIGURED from "@salesforce/schema/User.HasSecretKeyConfigured__c";
 
 export default class ActionsPanel extends LightningElement {
@@ -19,10 +19,9 @@ export default class ActionsPanel extends LightningElement {
         return this.hasSecretKeyConfigured ? "success" : "warning";
     }
 
-    @wire(getRecord, {recordId: "$userId", fields: [KEEPER_SECRET_KEY, HAS_SECRET_KEY_CONFIGURED]})
+    @wire(getRecord, {recordId: "$userId", fields: [SECRET_KEY, HAS_SECRET_KEY_CONFIGURED]})
     wireUserInfo({data, error}) {
         if (data) {
-            // TODO - wire service is not reactive to data modifications initiated at backend;
             this.hasSecretKeyConfigured = getFieldValue(data, HAS_SECRET_KEY_CONFIGURED);
         }
     }
@@ -32,9 +31,12 @@ export default class ActionsPanel extends LightningElement {
         if (this.hasSecretKeyConfigured) {
             toastify.info({message: "Secret key has already been created."});
         } else {
+            // Pull Flow definitions from backend;
             const flowApiName = "SecretKeySetup"; // Hardcoded Flow API name;
             fireEvent(this.pageRef, APPLICATION_EVENTS.RunFlow, {
-                name: flowApiName, onfinish: outputVariables => {
+                name: flowApiName,
+                onfinish: outputVariables => {
+                    // Trigger wire service re-load;
                     getRecordNotifyChange([{recordId: this.userId}]);
                 }
             });

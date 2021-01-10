@@ -10,4 +10,12 @@
         <members>secretKeySetup</members>
         <name>Lightning Web Component</name>
     </types>
+    <types>
+        <members>GenerateSecretKeyAction</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>User.KeeperSecretKey__c</members>
+        <name>CustomField</name>
+    </types>
 </Package>

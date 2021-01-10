@@ -22,10 +22,6 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>GenerateSecretKeyAction</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>SetupSecretKeyAction</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -310,7 +306,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>User.KeeperSecretKey__c</field>
+        <field>User.SecretKey__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <layoutAssignments>

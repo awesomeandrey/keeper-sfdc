@@ -16,5 +16,4 @@ public without sharing class SetupSecretKeyAction {
         }
         uow.commitWork();
     }
-    // TODO - implement logging mechanism;
 }

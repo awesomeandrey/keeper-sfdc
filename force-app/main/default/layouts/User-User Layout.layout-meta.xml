@@ -8,7 +8,7 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>KeeperSecretKey__c</field>
+                <field>SecretKey__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>

@@ -36,7 +36,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>User.KeeperSecretKey__c</field>
+        <field>User.SecretKey__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>

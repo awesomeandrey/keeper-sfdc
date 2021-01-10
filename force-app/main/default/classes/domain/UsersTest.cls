@@ -42,8 +42,8 @@ private class UsersTest {
         System.runAs(keeperUser) {
             // Call domain logic;
             Users usersDomain = new Users(Lists.of(keeperUser));
-            String validSecretKey = usersDomain.generateSecretKeyAsString();
-            usersDomain.validateSecretKey(validSecretKey);
+            Blob validSecretKeyAsBlob = usersDomain.generateSecretKey();
+            usersDomain.validateSecretKey(validSecretKeyAsBlob);
         }
         System.assert(!exceptionCaught);
     }
